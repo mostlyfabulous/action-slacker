@@ -50,9 +50,6 @@ async function run() {
     attachment.footer_icon = core.getInput('footer_icon', {
       required: false
     });
-    attachment.slackMessage = core.getInput("SLACK_MESSAGE", {
-      required: true,
-    });
 
     const channel = core.getInput('channel', {
       required: true
@@ -71,7 +68,7 @@ async function run() {
       username: username,
       text: `GitHub action (${process.env.GITHUB_WORKFLOW}) triggered\n`,
       attachments: [
-        attachment.slackMessage,
+        attachment.text,
         attachment
       ]
     });
