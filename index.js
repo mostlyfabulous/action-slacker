@@ -66,8 +66,8 @@ async function run() {
     const testOutputObject = JSON.parse(attachment.text);
 
     const blocks = [];
-    testOutputObject.text.split('\n').forEach(line => {
-      console.log("line: " + line);
+    testOutputObject.text.split('\n').slice(0, 40).forEach((line, index) => {
+      console.log("line " + index + ": " + line);
       blocks.push({
         type: "section",
         text: {
