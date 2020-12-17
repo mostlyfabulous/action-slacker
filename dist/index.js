@@ -1502,20 +1502,23 @@ async function run() {
 
     const testOutputObject = JSON.parse(attachment.text);
 
+    const blocks = [];
+    testOutputObject.text.split('\n').forEach(line => {
+      blocks.push({
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: line
+        }
+      });
+    });
+
     slack.send({
       channel: channel,
       icon_url: icon_url,
       username: username,
       text: `GitHub action (${process.env.GITHUB_WORKFLOW}) triggered\n`,
-      blocks: [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: testOutputObject.text
-          }
-        }
-      ],
+      blocks: blocks,
       attachments: [
         {
           "color": attachment.color,
