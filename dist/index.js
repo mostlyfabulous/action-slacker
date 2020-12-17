@@ -1509,7 +1509,7 @@ async function run() {
       text: `GitHub action (${process.env.GITHUB_WORKFLOW}) triggered\n`,
       blocks: [
         {
-          type: "text",
+          type: "section",
           text: {
             type: "mrkdwn",
             text: testOutputObject.text
