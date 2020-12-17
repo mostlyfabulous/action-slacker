@@ -67,6 +67,7 @@ async function run() {
 
     const blocks = [];
     testOutputObject.text.split('\n').forEach(line => {
+      console.log("line: " + line);
       blocks.push({
         type: "section",
         text: {
@@ -75,6 +76,7 @@ async function run() {
         }
       });
     });
+    console.log(blocks);
 
     slack.send({
       channel: channel,
