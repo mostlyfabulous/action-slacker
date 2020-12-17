@@ -65,29 +65,25 @@ async function run() {
 
     const testOutputObject = JSON.parse(attachment.text);
 
-    const blocks = testOutputObject.text
-      .split('\n')
-      .filter(line => line.length > 0)
-      .slice(0, 40)
-      .map((line, index) => {
-        console.log("line " + index + ": " + line);
-        return {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: line
-          }
-        };
-      }
-    );
-    console.log(blocks);
+    let textContent = testOutputObject.text;
+    if (textContent.length > 3000) {
+      textContent = textContent.substring(0, 2997) + "...";
+    }
 
     slack.send({
       channel: channel,
       icon_url: icon_url,
       username: username,
       text: `GitHub action (${process.env.GITHUB_WORKFLOW}) triggered\n`,
-      blocks: blocks,
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: textContent
+          }
+        }
+      ],
       attachments: [
         {
           "color": attachment.color,
