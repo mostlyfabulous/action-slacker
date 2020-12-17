@@ -1502,17 +1502,21 @@ async function run() {
 
     const testOutputObject = JSON.parse(attachment.text);
 
-    const blocks = [];
-    testOutputObject.text.split('\n').slice(0, 40).forEach((line, index) => {
-      console.log("line " + index + ": " + line);
-      blocks.push({
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: line
-        }
-      });
-    });
+    const blocks = testOutputObject.text
+      .split('\n')
+      .filter(line => line.length > 0)
+      .slice(0, 40)
+      .map((line, index) => {
+        console.log("line " + index + ": " + line);
+        blocks.push({
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: line
+          }
+        });
+      }
+    );
     console.log(blocks);
 
     slack.send({
