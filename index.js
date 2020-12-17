@@ -71,13 +71,13 @@ async function run() {
       .slice(0, 40)
       .map((line, index) => {
         console.log("line " + index + ": " + line);
-        blocks.push({
+        return {
           type: "section",
           text: {
             type: "mrkdwn",
             text: line
           }
-        });
+        };
       }
     );
     console.log(blocks);
