@@ -1499,14 +1499,22 @@ async function run() {
     });
 
     console.log("HERE");
+
+    const testOutputObject = JSON.parse(attachment.text);
+
     slack.send({
       channel: channel,
       icon_url: icon_url,
       username: username,
       text: `GitHub action (${process.env.GITHUB_WORKFLOW}) triggered\n`,
-      attachments: [
-        attachment.text,
-        attachment
+      blocks: [
+        {
+          type: "text",
+          text: {
+            type: "mrkdwn",
+            text: testOutputObject.text
+          }
+        }
       ]
     });
   } catch (error) {
