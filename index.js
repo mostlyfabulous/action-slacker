@@ -78,6 +78,20 @@ async function run() {
             text: testOutputObject.text
           }
         }
+      ],
+      attachments: [
+        {
+          "color": attachment.color,
+          "blocks": [
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": `[${attachment.title}[(${attachment.title_link})]`
+              }
+            }
+          ]
+        }
       ]
     });
   } catch (error) {
