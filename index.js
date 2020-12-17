@@ -87,7 +87,7 @@ async function run() {
               "type": "section",
               "text": {
                 "type": "mrkdwn",
-                "text": `[${attachment.title}[(${attachment.title_link})]`
+                "text": `[${attachment.title}](${attachment.title_link})`
               }
             }
           ]
