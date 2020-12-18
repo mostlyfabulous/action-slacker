@@ -1527,6 +1527,9 @@ async function run() {
       });
     }
 
+    const numberOfFailedTests = testOutputObject.numberOfFailedTests;
+    const testRunFailed = (numberOfFailedTests && numberOfFailedTests > 0);
+
     slack.send({
       channel: channel,
       icon_url: icon_url,
@@ -1535,7 +1538,7 @@ async function run() {
       blocks: blocks,
       attachments: [
         {
-          "color": attachment.color,
+          "color": testRunFailed ? '#cb2432' : attachment.color,
           "blocks": [
             {
               "type": "section",
