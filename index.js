@@ -85,7 +85,7 @@ async function run() {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: ":stackoverflow: **Test result is " + textContentOverLength + " characters too long to show. Check results in the link below** :stackoverflow:"
+          text: ":stackoverflow: Test result is " + textContentOverLength + " characters too long to show. Check results in the link below :stackoverflow:"
         }
       });
     }
