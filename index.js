@@ -66,8 +66,10 @@ async function run() {
     let textContent = testOutputObject.text;
     let textContentOverLength = 0;
     if (textContent.length > 3000) {
+      console.log("text is too long");
       textContent = textContent.substring(0, 3000);
       textContentOverLength = textContent.length - 3000;
+      console.log("characters: " + textContentOverLength);
     }
 
     const blocks = [
@@ -81,6 +83,7 @@ async function run() {
     ];
 
     if (textContentOverLength > 0) {
+      console.log("adding second block");
       blocks.push({
         type: "section",
         text: {
