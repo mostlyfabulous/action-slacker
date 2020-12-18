@@ -1498,13 +1498,33 @@ async function run() {
       required: true
     });
 
-    console.log("HERE");
-
     const testOutputObject = JSON.parse(attachment.text);
 
     let textContent = testOutputObject.text;
+    let textContentOverLength = 0;
     if (textContent.length > 3000) {
-      textContent = textContent.substring(0, 2997) + "...";
+      textContent = textContent.substring(0, 3000);
+      textContentOverLength = textContent.length - 3000;
+    }
+
+    const blocks = [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: textContent
+        }
+      }
+    ];
+
+    if (textContentOverLength > 0) {
+      blocks.push({
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "Test result is " + textContentOverLength + " characters too long to show. Check results in the link below"
+        }
+      });
     }
 
     slack.send({
@@ -1512,15 +1532,7 @@ async function run() {
       icon_url: icon_url,
       username: username,
       text: `GitHub action (${process.env.GITHUB_WORKFLOW}) triggered\n`,
-      blocks: [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: textContent
-          }
-        }
-      ],
+      blocks: blocks,
       attachments: [
         {
           "color": attachment.color,
